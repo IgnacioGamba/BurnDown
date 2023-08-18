@@ -1,0 +1,74 @@
+---
+title: "BurnDown y Planificación del Proyecto"
+author: "Ignacio Gambino, Marcos Ander Egg, Francisco Artero"
+date: "2023-08-18"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Gráficos de Burndown
+
+Los gráficos Burndown se utilizan para mostrar una serie temporal del progreso hacia los objetivos de un proyecto. El formato es sencillo. El eje x representa el tiempo, que va desde el inicio del proyecto hasta la fecha límite para su finalización. El eje y representa el esfuerzo restante que se requiere para realizar el trabajo. A medida que se lleva a cabo el trabajo, el gráfico proporciona un resumen continuo del progreso hacia la fecha límite. Si el trabajo avanza sin problemas de acuerdo con el cronograma, el gráfico toma la forma de un triángulo, y el esfuerzo restante cae desde su valor inicial a cero en la fecha límite.
+
+Primero descargamos el package "plan" de la barra de herramientas "Tools". Luego ejecutamos lo siguiente para obtener un grafico a modo de ejemplo:
+
+```{r}
+library("plan")
+data(burndown)
+plot(burndown)
+```
+
+
+
+
+
+## Diagramas de Gantt
+
+Los diagramas de Gantt indican un cronograma para completar los componentes de un proyecto. El Gantt del conjunto de datos de muestra es un plan de investigación hipotético para un proyecto de maestría; puede ver cómo se grafica con ejemplo (plot.gantt), o ingresando el siguiente código.
+
+Luego para realizar el diagrama de gant ejecutamos las sigientes lineas:
+
+```{r}
+library("plan")
+data(gantt)
+plot(gantt)
+```
+
+
+## Projecto Final
+
+ Luego de entender y aprender estas herramientas, lo que se realizo es un diagrama de gantt del proyecto que se realizara para recibirse.
+ 
+ 
+```{r}
+library("plan")
+g <- new("gantt")
+g <- ganttAddTask(g, "Busqueda y Contacto con Bodega", "2023-08-01", "2023-09-1", done=50) 
+g <- ganttAddTask(g, "Visita y Organizacion del Grupo de Trabajo", "2023-09-01", "2023-09-10", done=20)
+g <- ganttAddTask(g, "Recopilación de Datos y Análisis Inicial", "2023-09-10", "2023-10-01", done=10)
+g <- ganttAddTask(g, "Diseño de la Metodología de Reingeniería", "2023-09-20", "2023-10-15", done=5)
+g <- ganttAddTask(g, "Planificación y diseño de mejoras", "2023-10-15", "2024-01-05", done=0)
+g <- ganttAddTask(g, "Evaluación de Factibilidad", "2024-01-10", "2024-01-31", done=0)
+g <- ganttAddTask(g, "Desarrollo de Pruebas y Análisis de Riesgos", "2024-02-01", "2024-02-27", done=0)
+g <- ganttAddTask(g, "Análisis y Ajuste de Resultados", "2024-03-03", "2024-04-15", done=0) 
+g <- ganttAddTask(g, "Elaboración de la Propuesta Final", "2024-04-16", "2024-05-10", done=0)
+g <- ganttAddTask(g, "Revisión y Edición Final", "2024-05-11", "2024-06-10", done=0)
+g <- ganttAddTask(g, "Entrega de la Tesis", "2024-06-10", "2024-07-15", done=0)
+g <- ganttAddTask(g, "Defensa Oral de la Tesis", "2024-07-16", "2024-08-01", done=0)
+g <- ganttAddTask(g, "Revisión Final y Conclusión", "2024-08-01", "2024-08-10", done=0)
+font <- ifelse(is.na(g[["start"]]), 2, 1)
+plot(g, ylabel=list(font=font),
+event.time="2024-01-01", event.label="Report Date")
+par(lend="square") # default is round
+legend("topright", pch=22, pt.cex=2, pt.bg=gray(c(0.3, 0.9)),
+border="black", xpd=NA,
+legend=c("Completado", "Por realizar"), title="Diploma Ingeniero", bg="white")
+```
+ 
+## Conclusión
+
+La creación del diagrama de Gantt con fechas estimadas proporciona una estructura inicial para el proyecto de reingeniería de la bodega. A medida que avanzamos y adquirimos una comprensión más precisa, estas fechas se ajustarán para reflejar con mayor fidelidad la realidad del proceso. La flexibilidad en la adaptación de las fechas es esencial para tomar decisiones informadas y garantizar una gestión efectiva.
+
